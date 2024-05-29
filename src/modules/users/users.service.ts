@@ -27,26 +27,29 @@ export class UsersService {
   }
 
 
-  async searchUser(roleId: string, search: string, page= 1, size= 10): Promise<any> {
+  async searchUser(roleId?: string, search?: string, page: number = 1, size: number = 10): Promise<any> {
+    const searchValue: any = { $or: [] };
 
-    const searchValue:any ={
-      $or:[]
-    };
-    if(search){
-      searchValue.$or.push({username:{ $regex: search, $option:"i" }})
+    if (search) {
+      searchValue.$or.push({ username: { $regex: search, $options: "i" } });
     }
 
-    if(roleId){
-      searchValue.$or.push({role:roleId})
+    if (roleId) {
+      searchValue.$or.push({ role: roleId });
     }
 
-    if(searchValue.$or.length()===0){
-      delete searchValue.$or
+    if (searchValue.$or.length === 0) {
+      delete searchValue.$or;
     }
-    const users = await this.userModel.find(searchValue).populate('role').skip((page-1)*size).limit(size).exec(); 
+
+    const users = await this.userModel.find(searchValue)
+      .populate('role')
+      .skip((page - 1) * size)
+      .limit(size)
+      .exec();
 
     const total = await this.userModel.countDocuments(searchValue).exec();
-    return {users,total,page,size};
+    return { users, total, page, size };
   }
 
   async findAllByRoleId(roleId: string, username: string): Promise<User[]> {
