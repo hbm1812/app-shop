@@ -18,7 +18,7 @@ import { Response } from 'express';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post('register')
   async register(
@@ -37,18 +37,15 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles('admin', 'Super admin')
 
-  
+
   @Post('roleId')
   async findAllByRoleId(@Body() body: { roleId: string; username: string }) {
     return this.usersService.findAllByRoleId(body.roleId, body.username);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
+
   @Roles('admin', 'Super admin')
-  
   @Post('search')
   async searchUser(
     @Body() body: { roleId?: string; search?: string; page?: number; size?: number },
