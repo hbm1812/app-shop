@@ -13,8 +13,8 @@ export class LoaiSanPhamService {
     async createLoaiSanPham(tenLoaiSanPham: string, status: string, icon: string): Promise<any> {
         const loai = new this.loaiSanPhamModel({ tenLoaiSanPham, status, icon });
         const result = await loai.save();
-        const userObj = result.toObject();
-        return userObj;
+        const Obj = result.toObject();
+        return Obj;
     }
 
     async update(body, _id): Promise<any> {
@@ -27,7 +27,14 @@ export class LoaiSanPhamService {
         if (!product) {
             throw new NotFoundException('Product not found');
         }
-        return'Deleted successfully';
+        else{
+            const delPr= this.loaiSanPhamModel.findOne({ _id }).lean().exec();
+            if(delPr){
+                return "Xóa thành công!";
+            }
+            return "Xóa thất bại!";
+        }
+       
     }
 
 

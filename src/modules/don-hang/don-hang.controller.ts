@@ -1,38 +1,42 @@
 import { Controller, UseGuards, Request, Get, Post, Body, Put, Param, Res, HttpStatus, Delete } from '@nestjs/common';
-import { LoaiSanPhamService } from './loai-san-pham.service';
-import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
-import { RolesGuard } from '../auth/guard/roles.guard';
-import { Response } from 'express';
+import { DonHangService } from './don-hang.service';
 import { responseData } from 'src/common/responseData.util';
+import { Response } from 'express';
 
-
-@Controller('loai-san-pham')
-export class LoaiSanPhamController {
-    constructor(private readonly loaiSanPhamService: LoaiSanPhamService) { }
+@Controller('don-hang')
+export class DonHangController {
+    constructor(private readonly donHangService: DonHangService) { }
     // @UseGuards(JwtAuthGuard, RolesGuard)
     // @Roles('Super admin')
     @Get()
     async getAll(@Request() req) {
-        return this.loaiSanPhamService.getAll();
+        return this.donHangService.getAll();
+    }
+
+    // @Roles('Super admin')
+    @Get()
+    async getOne( @Param('id') id_khachHang:string) {
+        return this.getOne(id_khachHang);
     }
 
     // @Roles('Super admin')
     @Post()
-    async create(@Body() themLoaiSanPham: { tenLoaiSanPham: string, status:string, icon: string }) {
-        return this.loaiSanPhamService.createLoaiSanPham(themLoaiSanPham.tenLoaiSanPham, themLoaiSanPham.status, themLoaiSanPham.icon);
+    async create(@Body() body: {id_khachHang: string, trangThaiDonHang: string, tongTien:string, phuongThucThanhToan: string, ghiChu:string}) {
+        const currentDate = new Date();
+        return this.donHangService.create(body.id_khachHang, currentDate, body.trangThaiDonHang, body.tongTien, body.phuongThucThanhToan, body.ghiChu);
     }
 
 
  // @Roles('Super admin')
     @Put('/:id')
     async update(
-        @Body() body: { tenLoaiSanPham: string; status?: string; icon: string },
+        @Body() body: { id_khachHang: string, trangThaiDonHang: string, tongTien:string, phuongThucThanhToan: string, ghiChu:string },
         @Param('id') _id:string,
         @Res() res: Response,
       ) {
     
         try {
-          const result = await this.loaiSanPhamService.update(body, _id);
+          const result = await this.donHangService.update(body, _id);
           return responseData(res, result, HttpStatus.OK, 'Success');
         } catch (err) {
           return responseData(res, null, HttpStatus.BAD_REQUEST, err.message);
@@ -48,11 +52,10 @@ export class LoaiSanPhamController {
       ) {
     
         try {
-          const result = await this.loaiSanPhamService.delete( _id);
+          const result = await this.donHangService.delete( _id);
           return responseData(res, result, HttpStatus.OK, 'Success');
         } catch (err) {
           return responseData(res, null, HttpStatus.BAD_REQUEST, err.message);
         }
       }
-      
 }

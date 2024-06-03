@@ -1,38 +1,39 @@
 import { Controller, UseGuards, Request, Get, Post, Body, Put, Param, Res, HttpStatus, Delete } from '@nestjs/common';
-import { LoaiSanPhamService } from './loai-san-pham.service';
+import { ThuongHieuService } from './thuong-hieu.service';
+import { Roles } from '../auth/roles.decorator';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { RolesGuard } from '../auth/guard/roles.guard';
-import { Response } from 'express';
 import { responseData } from 'src/common/responseData.util';
+import { Response } from 'express';
 
-
-@Controller('loai-san-pham')
-export class LoaiSanPhamController {
-    constructor(private readonly loaiSanPhamService: LoaiSanPhamService) { }
+@Controller('thuong-hieu')
+export class ThuongHieuController {
+    constructor(private readonly thuongHieuService: ThuongHieuService) { }
+   
     // @UseGuards(JwtAuthGuard, RolesGuard)
     // @Roles('Super admin')
+
     @Get()
     async getAll(@Request() req) {
-        return this.loaiSanPhamService.getAll();
+        return this.thuongHieuService.getAll();
     }
 
-    // @Roles('Super admin')
-    @Post()
-    async create(@Body() themLoaiSanPham: { tenLoaiSanPham: string, status:string, icon: string }) {
-        return this.loaiSanPhamService.createLoaiSanPham(themLoaiSanPham.tenLoaiSanPham, themLoaiSanPham.status, themLoaiSanPham.icon);
-    }
+    
+     @Post()
+     async create(@Body() body: { tenThuongHieu: string, status:string, anh: string }) {
+         return this.thuongHieuService.createThuongHieu(body.tenThuongHieu, body.status, body.anh);
+     } 
 
-
- // @Roles('Super admin')
+     // @Roles('Super admin')
     @Put('/:id')
     async update(
-        @Body() body: { tenLoaiSanPham: string; status?: string; icon: string },
+        @Body() body: { tenThuongHieu: string; status?: string; anh: string },
         @Param('id') _id:string,
         @Res() res: Response,
       ) {
     
         try {
-          const result = await this.loaiSanPhamService.update(body, _id);
+          const result = await this.thuongHieuService.update(body, _id);
           return responseData(res, result, HttpStatus.OK, 'Success');
         } catch (err) {
           return responseData(res, null, HttpStatus.BAD_REQUEST, err.message);
@@ -48,11 +49,12 @@ export class LoaiSanPhamController {
       ) {
     
         try {
-          const result = await this.loaiSanPhamService.delete( _id);
+          const result = await this.thuongHieuService.delete( _id);
           return responseData(res, result, HttpStatus.OK, 'Success');
         } catch (err) {
           return responseData(res, null, HttpStatus.BAD_REQUEST, err.message);
         }
       }
-      
+
+
 }

@@ -7,10 +7,22 @@ import { DatabaseModule } from './database/database.module';
 import { QuyenModule } from './modules/quyen/quyen.module';
 import { DmSanPhamModule } from './modules/dm-san-pham/dm-san-pham.module';
 import { LoaiSanPhamModule } from './modules/loai-san-pham/loai-san-pham.module';
-
+import { ThuongHieuModule } from './modules/thuong-hieu/thuong-hieu.module';
+import { KhachHangModule } from './modules/khach-hang/khach-hang.module';
+import { DonHangModule } from './modules/don-hang/don-hang.module';
 
 @Module({
-  imports: [UsersModule, QuyenModule, AuthModule, DatabaseModule, DmSanPhamModule, LoaiSanPhamModule],
+  imports: [
+    UsersModule,
+    QuyenModule,
+    AuthModule,
+    DatabaseModule,
+    DmSanPhamModule,
+    LoaiSanPhamModule,
+    ThuongHieuModule,
+    KhachHangModule,
+    DonHangModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -30,8 +30,8 @@ export class UsersController {
     );
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin', 'Super admin')
+  // @UseGuards(JwtAuthGuard, RolesGuard)
+  // @Roles('admin', 'Super admin')
   @Get()
   async findAll(@Request() req) {
     return this.usersService.findAll();
