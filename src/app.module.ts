@@ -10,6 +10,8 @@ import { LoaiSanPhamModule } from './modules/loai-san-pham/loai-san-pham.module'
 import { ThuongHieuModule } from './modules/thuong-hieu/thuong-hieu.module';
 import { KhachHangModule } from './modules/khach-hang/khach-hang.module';
 import { DonHangModule } from './modules/don-hang/don-hang.module';
+import { ChiTietDonHangModule } from './modules/chi-tiet-don-hang/chi-tiet-don-hang.module';
+import { ProductModule } from './modules/product/product.module';
 
 @Module({
   imports: [
@@ -21,7 +23,9 @@ import { DonHangModule } from './modules/don-hang/don-hang.module';
     LoaiSanPhamModule,
     ThuongHieuModule,
     KhachHangModule,
-    DonHangModule
+    DonHangModule,
+    ChiTietDonHangModule,
+    ProductModule
   ],
   controllers: [AppController],
   providers: [AppService],
