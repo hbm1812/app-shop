@@ -11,19 +11,19 @@ export class ChiTietDonHang {
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'products' })
     id_sanPham: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   soLuong: number;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   tongTien: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   gia: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   thanhTien: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   khuyenMai: string;
 
 

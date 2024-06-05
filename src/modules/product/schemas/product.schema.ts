@@ -5,50 +5,50 @@ export type ProductDocument = Product & Document;
 @Schema()
 export class Product {
 
-    @Prop({ required: true, unique: true })
+    @Prop({ required: true})
     tenSanPham: string;
 
-    @Prop({ required: true, unique: true })
+    @Prop({ required: true})
     moTa: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   giaBan: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   giaGiam: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   hinhAnh: [];
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   loaiSanPham: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   thuongHieu: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   kichThuoc: [];
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   mauSac: string;
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   soLuong: number;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   trangThai: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   ngayTao: Date;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   ngayCapNhat: Date;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   code: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   sanPhamMoi: boolean;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   giaNhapHang: string;
 
 }

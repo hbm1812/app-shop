@@ -8,19 +8,19 @@ export class DonHang {
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'khachhangs', default: 'ObjectId của role user mặc định' })
     id_khachHang: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   ngayDatHang: Date;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   trangThaiDonHang: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   tongTien: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   phuongThucThanhToan: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   ghiChu: string;
 
 }

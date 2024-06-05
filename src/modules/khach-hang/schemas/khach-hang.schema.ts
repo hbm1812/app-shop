@@ -5,16 +5,16 @@ export type KhachHangDocument = KhachHang & Document;
 @Schema()
 export class KhachHang {
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   hoTen: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   soDienThoai: string;          a
 
   @Prop({ required: true, unique: true })
   email: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   ngayTaoTaiKhoan: Date;
 }
 

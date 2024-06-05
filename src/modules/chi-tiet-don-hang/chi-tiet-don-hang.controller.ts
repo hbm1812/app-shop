@@ -15,8 +15,8 @@ export class ChiTietDonHangController {
 
      // @Roles('Super admin')
      @Post('find')
-     async findById( @Body() body:{id_donHang:string}) {
-         return this.findById(body);
+     async findByIdDonHang( @Body() body: {id_donHang: string} ){
+         return this.chiTietDonHangService.findByIdDonHang(body.id_donHang);
      }
 
 

@@ -5,13 +5,13 @@ export type LoaiSanPhamDocument = LoaiSanPham & Document;
 @Schema()
 export class LoaiSanPham {
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   tenLoaiSanPham: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   status: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   icon: string;
 }
 

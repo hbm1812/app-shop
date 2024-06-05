@@ -5,13 +5,13 @@ export type ThuongHieuDocument = ThuongHieu & Document;
 @Schema()
 export class ThuongHieu {
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   tenThuongHieu: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   status: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   anh: string;
 }
 

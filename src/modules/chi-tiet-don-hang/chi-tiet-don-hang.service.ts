@@ -10,14 +10,14 @@ export class ChiTietDonHangService {
         return this.chiTietDonHangModel.find().exec();
     }
 
-    async findById(id_donHang: string): Promise<any> {
-        return this.chiTietDonHangModel.findById({ id_donHang }).lean().exec();
-    }
+    async findByIdDonHang(id_donHang: string): Promise<any> {
+        return this.chiTietDonHangModel.find({ id_donHang }).lean().exec();
+      }
 
 
-
-    async create(id_donHang: string, id_sanPham: string, soLuong: string, tongTien: string, gia: string, thanhTien: string, khuyenMai: string): Promise<any> {
-        const loai = new this.chiTietDonHangModel({ id_donHang, id_sanPham, soLuong, tongTien, gia, thanhTien, khuyenMai });
+      
+    async create(id_donHang: string, id_sanPham: string, soLuong:string, tongTien: string, gia:string, thanhTien:string, khuyenMai:string): Promise<any> {
+        const loai = new this.chiTietDonHangModel({ id_donHang, id_sanPham, soLuong, tongTien,gia, thanhTien, khuyenMai});
         const result = await loai.save();
         const Obj = result.toObject();
         return Obj;
@@ -33,12 +33,12 @@ export class ChiTietDonHangService {
         if (!product) {
             throw new NotFoundException('Product not found');
         }
-        else {
-            const del = this.chiTietDonHangModel.findOne({ _id }).lean().exec();
-            if (del) {
+        else{
+            const del= this.chiTietDonHangModel.findOne({ _id }).lean().exec();
+            if(del){
                 return "Xóa thành công!";
             }
             return "Xóa thất bại!";
-        }
+        }    
     }
 }

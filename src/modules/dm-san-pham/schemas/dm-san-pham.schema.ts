@@ -5,10 +5,10 @@ export type DMSanPhamDocument = DMSanPham & Document;
 @Schema()
 export class DMSanPham {
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   tenDMSanPham: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true})
   image: string;
 }
 
