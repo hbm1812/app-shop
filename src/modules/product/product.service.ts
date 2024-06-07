@@ -72,42 +72,43 @@ export class ProductService {
     }
   }
 
+  
   async search(
     body,
     page: number = 1,
     size: number = 10,
   ): Promise<any> {
-    const searchValue: any = { $or: [] };
+    const searchValue: any = { $and: [] };
 
     if (body.tenSanPham) {
-      searchValue.$or.push({ tenSanPham: { $regex: body.tenSanPham, $options: 'i' } });
+      searchValue.$and.push({ tenSanPham: { $regex: body.tenSanPham, $options: 'i' } });
     }
 
     if (body.loaiSanPham) {
-      searchValue.$or.push({ loaiSanPham: { $regex: body.loaiSanPham }});
+      searchValue.$and.push({ loaiSanPham: { $regex: body.loaiSanPham , $options: 'i'}});
     }
     if (body.thuongHieu) {
-      searchValue.$or.push({ thuongHieu: { $regex: body.thuongHieu} });
+      searchValue.$and.push({ thuongHieu: { $regex: body.thuongHieu, $options: 'i'} });
     }
 
     if (body.kichThuoc) {
-      searchValue.$or.push({ kichThuoc: { $regex: body.kichThuoc } });
+      searchValue.$and.push({ kichThuoc: { $regex: body.kichThuoc, $options: 'i' } });
     }
 
     if (body.mauSac) {
-      searchValue.$or.push({ mauSac: { $regex: body.mauSac } });
+      searchValue.$and.push({ mauSac: { $regex: body.mauSac, $options: 'i' } });
     }
 
     if (body.trangThai) {
-      searchValue.$or.push({ trangThai: { $regex: body.trangThai } });
+      searchValue.$and.push({ trangThai: { $regex: body.trangThai, $options: 'i' } });
     }
 
     if (body.sanPhamMoi) {
-      searchValue.$or.push({ sanPhamMoi: { $regex: body.sanPhamMoi } });
+      searchValue.$and.push({ sanPhamMoi: body.sanPhamMoi });
     }
 
-    if (searchValue.$or.length === 0) {
-      delete searchValue.$or;
+    if (searchValue.$and.length === 0) {
+      delete searchValue.$and;
     }
 
     const products = await this.productModel
