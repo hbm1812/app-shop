@@ -17,15 +17,13 @@ import { Response } from 'express';
 
 @Controller('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) { }
+  constructor(private readonly productService: ProductService) {}
   // @UseGuards(JwtAuthGuard, RolesGuard)
   // @Roles('Super admin')
   @Get()
   async getAll(@Request() req) {
     return this.productService.getAll();
   }
-
-
 
   // @Roles('Super admin')
   @Post()
@@ -42,11 +40,10 @@ export class ProductController {
       kichThuoc: string;
       mauSac: string;
       soLuong: number;
-      trangThai:string,
+      trangThai: string;
       code: string;
       sanPhamMoi: boolean;
       giaNhapHang: string;
-
     },
   ) {
     const currentDate = new Date();
@@ -66,7 +63,7 @@ export class ProductController {
       currentDate,
       body.code,
       body.sanPhamMoi,
-      body.giaNhapHang
+      body.giaNhapHang,
     );
   }
 
@@ -85,8 +82,8 @@ export class ProductController {
       kichThuoc: string;
       mauSac: string;
       soLuong: number;
-      trangThai:string,
-      ngayCapNhat:Date,
+      trangThai: string;
+      ngayCapNhat: Date;
       code: string;
       sanPhamMoi: boolean;
       giaNhapHang: string;
@@ -95,7 +92,7 @@ export class ProductController {
     @Res() res: Response,
   ) {
     try {
-      const result = await this.productService.update(body,_id);
+      const result = await this.productService.update(body, _id);
       return responseData(res, result, HttpStatus.OK, 'Success');
     } catch (err) {
       return responseData(res, null, HttpStatus.BAD_REQUEST, err.message);
@@ -107,6 +104,36 @@ export class ProductController {
   async delete(@Param('id') _id: string, @Res() res: Response) {
     try {
       const result = await this.productService.delete(_id);
+      return responseData(res, result, HttpStatus.OK, 'Success');
+    } catch (err) {
+      return responseData(res, null, HttpStatus.BAD_REQUEST, err.message);
+    }
+  }
+
+  @Post('search')
+  async searchUser(
+    @Body()
+    body: {
+      tenSanPham?: string;
+      loaiSanPham?: string;
+      thuongHieu?: string;
+      kichThuoc?: string;
+      mauSac?: string;
+      trangThai?: string;
+      sanPhamMoi?: boolean;
+      page?: number;
+      size?: number;
+    },
+    @Res() res: Response,
+  ) {
+    const { tenSanPham, loaiSanPham, thuongHieu, kichThuoc, mauSac, trangThai, sanPhamMoi, page = 1, size = 10 } = body;
+
+    try {
+      const result = await this.productService.search(
+        body,
+        page,
+        size,
+      );
       return responseData(res, result, HttpStatus.OK, 'Success');
     } catch (err) {
       return responseData(res, null, HttpStatus.BAD_REQUEST, err.message);

@@ -37,7 +37,7 @@ export class KhachHangController {
       }
 
 
-       // @Roles('Super admin')
+    // @Roles('Super admin')
     @Delete('/:id')
     async delete(
         @Param('id') _id:string,

@@ -53,8 +53,8 @@ export class ProductService {
     return Obj;
   }
 
-  async update(body,_id): Promise<any> {
-    body.ngayCapNhat= new Date();
+  async update(body, _id): Promise<any> {
+    body.ngayCapNhat = new Date();
     const product = await this.productModel.findByIdAndUpdate(_id, body);
     return product;
   }
@@ -70,5 +70,53 @@ export class ProductService {
       }
       return 'Xóa thất bại!';
     }
+  }
+
+  async search(
+    body,
+    page: number = 1,
+    size: number = 10,
+  ): Promise<any> {
+    const searchValue: any = { $or: [] };
+
+    if (body.tenSanPham) {
+      searchValue.$or.push({ tenSanPham: { $regex: body.tenSanPham, $options: 'i' } });
+    }
+
+    if (body.loaiSanPham) {
+      searchValue.$or.push({ loaiSanPham: { $regex: body.loaiSanPham }});
+    }
+    if (body.thuongHieu) {
+      searchValue.$or.push({ thuongHieu: { $regex: body.thuongHieu} });
+    }
+
+    if (body.kichThuoc) {
+      searchValue.$or.push({ kichThuoc: { $regex: body.kichThuoc } });
+    }
+
+    if (body.mauSac) {
+      searchValue.$or.push({ mauSac: { $regex: body.mauSac } });
+    }
+
+    if (body.trangThai) {
+      searchValue.$or.push({ trangThai: { $regex: body.trangThai } });
+    }
+
+    if (body.sanPhamMoi) {
+      searchValue.$or.push({ sanPhamMoi: { $regex: body.sanPhamMoi } });
+    }
+
+    if (searchValue.$or.length === 0) {
+      delete searchValue.$or;
+    }
+
+    const products = await this.productModel
+      .find(searchValue)
+      .skip((page - 1) * size)
+      .limit(size)
+      .exec();
+
+    const total = await this.productModel.countDocuments(searchValue).exec();
+    return { products, total, page, size };
   }
 }
